@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+    scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true
+    scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位默认单位是毫秒，当scan为true时此属性生效，默认时间间隔为1分钟
+    debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态，默认值为false
+ -->
+<configuration scan="true" scanPeriod="2 seconds">
+	<!--
+     	 定义滚动记录文件appender 作用:滚动记录文件,先将日志记录到指定文件,当符合某个条件时,将日志记录到其他文件 
+        RollingFileAppender class="ch.qos.logback.core.rolling.RollingFileAppender"
+       	 参数： 
+            <append>:如果是true日志被追加到文件结尾，如果是false清空现存文件,默认是true
+            <file>:被写入的文件名，可以是相对目录也可以是绝对目录，如果上级目录不存在会自动创建，没有默认值
+            <rollingPolicy>:当发生滚动时，决定RollingFileAppender的行为，涉及文件移动和重命名
+            <triggeringPolicy>:告知RollingFileAppender合适激活滚动
+            <prudent>:当为true时不支持FixedWindowRollingPolicy支持TimeBasedRollingPolicy，但是有两个限制:1不支持也不允许文件压缩,2不能设置file属性必须留空
+    -->
+    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 如果是true,日志被追加到文件结尾，如果是false,清空现存文件.默认是true -->
+        <prudent>true</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        	<!-- 每天滚动一次的日志 只保留30天内的日志文件 -->
+            <fileNamePattern>logs/%d{yyyy-MM-dd}/springboot_%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        	<!-- 对日志进行格式化 -->
+            <pattern>%date %level [%thread] %logger{10}.%class{0}#%method[%file:%line] %n%msg%n</pattern>
+        	<charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <prudent>true</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/%d{yyyy-MM-dd}/springboot-error_%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10}.%class{0}#%method[%file:%line] %n%msg%n</pattern>
+        	<charset>utf-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date %level [%thread] %logger{10}.%class{0}#%method[%file:%line] %n%msg%n</pattern>
+        </layout>
+    </appender>
+
+    <root level="error">
+    	<appender-ref ref="console"/>
+        <appender-ref ref="fileAppender"/>
+        <appender-ref ref="errorAppender"/>
+    </root>
+    
+    <logger name="com.xcbeyond.springboot" level="debug"/>
+</configuration>
