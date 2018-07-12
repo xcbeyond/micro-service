@@ -5,8 +5,8 @@
     debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态，默认值为false
  -->
 <configuration scan="true" scanPeriod="2 seconds">
-	<!--
-     	 定义滚动记录文件appender 作用:滚动记录文件,先将日志记录到指定文件,当符合某个条件时,将日志记录到其他文件 
+    <!--
+     	定义滚动记录文件appender 作用:滚动记录文件,先将日志记录到指定文件,当符合某个条件时,将日志记录到其他文件 
         RollingFileAppender class="ch.qos.logback.core.rolling.RollingFileAppender"
        	 参数： 
             <append>:如果是true日志被追加到文件结尾，如果是false清空现存文件,默认是true
@@ -46,6 +46,15 @@
             <pattern>%date %level [%thread] %logger{10}.%class{0}#%method[%file:%line] %n%msg%n</pattern>
         	<charset>utf-8</charset>
         </encoder>
+
+        <!-- 
+          	   配置日志级别过滤器 作用:根据日志级别进行过滤，如果日志级别等于配置级别过滤器会根据onMath和onMismatch接收或拒绝日志
+           	  参数:
+             <level>:设置过滤级别
+             <onMatch>:用于配置符合过滤条件的操作
+             <onMismatch>:用于配置不符合过滤条件的操作
+                                       此处配置为只接收ERROR日志级别信息
+         -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
@@ -53,17 +62,26 @@
         </filter>
     </appender>
 
+    <!-- 定义控制台appender 作用:把日志输出到控制台 class="ch.qos.logback.core.ConsoleAppender" -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>%date %level [%thread] %logger{10}.%class{0}#%method[%file:%line] %n%msg%n</pattern>
         </layout>
     </appender>
 
+    <!-- 将root的打印级别设置为"error",指定了名字为"console","fileAppender","errorAppender"的appender -->
     <root level="error">
     	<appender-ref ref="console"/>
         <appender-ref ref="fileAppender"/>
         <appender-ref ref="errorAppender"/>
     </root>
     
+    <!--                    
+        logger用来设置某一个包的日志打印级别
+        <loger> 仅有一个name属性,一个可选的level和一个可选的addtivity属性
+         name:用来指定受此loger约束的某一个包或者具体的某一个类
+         level:用来设置打印级别,大小写无关:TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF
+         addtivity:是否向上级loger传递打印信息。默认是true,会将信息输入到root配置指定的地方,可以包含多个appender-ref，标识这个appender会添加到这个logger
+    -->
     <logger name="com.xcbeyond.springboot" level="debug"/>
 </configuration>
