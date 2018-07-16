@@ -3,10 +3,13 @@ package com.xcbeyond.springboot.controller;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xcbeyond.springboot.config.RandomConfig;
 import com.xcbeyond.springboot.dao.UserDao;
+import com.xcbeyond.springboot.mapper.UserMapper;
 import com.xcbeyond.springboot.model.User;
 /**
  * Controller demo
@@ -24,6 +27,9 @@ public class ControllerDemo {
 	
 	@Resource
 	private UserDao userDao;
+	
+	@Resource
+	private UserMapper userMapper;
 
 	@RequestMapping("/print")
 	public String print() {
@@ -53,6 +59,18 @@ public class ControllerDemo {
 		
 		int ret = userDao.insertUser(user);
 		return String.valueOf(ret);
+		
+	}
+	
+	/**
+	 * 通过userid查询
+	 * @param userid
+	 * @return
+	 */
+	@RequestMapping(value="/queryUserByUserid", method=RequestMethod.GET)
+	public String queryUserByUserid(@RequestParam("userid") String userid) {
+		User user = userMapper.queryUserByUserid(userid);
+		return user.toString();
 		
 	}
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xcbeyond.springboot.mapper.UserMapper">
+	<sql id="column">
+		userid,username,sex,age
+	</sql>
+
+	<select id="queryUserByUserid" parameterType="string"
+		resultType="com.xcbeyond.springboot.model.User">
+		select
+		<include refid="column"></include>
+		from t_user
+		where userid = #{userid}
+	</select>
+</mapper>
