@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xcbeyond.springboot.config.RandomConfig;
+import com.xcbeyond.springboot.dao.UserDao;
+import com.xcbeyond.springboot.model.User;
 /**
  * Controller demo
  * @author xcbeyond
@@ -19,6 +21,9 @@ import com.xcbeyond.springboot.config.RandomConfig;
 public class ControllerDemo {
 	@Resource
 	private RandomConfig randomConfig;
+	
+	@Resource
+	private UserDao userDao;
 
 	@RequestMapping("/print")
 	public String print() {
@@ -32,5 +37,22 @@ public class ControllerDemo {
 	@RequestMapping("/randomSecret")
 	public String randomSecret() {
 		return randomConfig.getSecret();
+	}
+	
+	/**
+	 * 通过JdbcTemplate方式插入用户信息
+	 * @return
+	 */
+	@RequestMapping("/insertUserByJdbcTemplate")
+	public String insertUserByJdbcTemplate() {
+		User user = new User();
+		user.setUserId("xcbeyond");
+		user.setUserName("xcbeyond");
+		user.setSex("F");
+		user.setAge(18);
+		
+		int ret = userDao.insertUser(user);
+		return String.valueOf(ret);
+		
 	}
 }

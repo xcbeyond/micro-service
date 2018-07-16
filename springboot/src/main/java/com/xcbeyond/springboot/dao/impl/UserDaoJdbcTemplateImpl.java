@@ -25,7 +25,7 @@ public class UserDaoJdbcTemplateImpl implements UserDao {
 	
 	@Override
 	public int insertUser(User user) {
-		String sql = "INSERT INTO t_user (userid, username, sex, age) VALUES	(?, ?, ?, ？)";
+		String sql = "INSERT INTO t_user (userid, username, sex, age) VALUES (:userid, :username, :sex, :age)";
 		Map<String,Object> param = new HashMap<String,Object>();
 		param.put("userid", user.getUserId());
 		param.put("username", user.getUserName());
