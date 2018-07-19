@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
  * @author xcbeyond
  * 2018年7月11日下午3:04:12
  */
-@Component
+//@Component
 //绑定属性文件中的属性，prefix:属性前缀
-@ConfigurationProperties(prefix="user.random")
+//@ConfigurationProperties(prefix="user.random")
 //加载指定的属性配置文件，获取对应的key-value值，存储到Spring的Environment中
-@PropertySource(value="config/random.properties")
+//@PropertySource(value="config/random.properties")
 public class RandomConfig {
 	private String secret;
     private int intNumber;

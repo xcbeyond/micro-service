@@ -22,8 +22,8 @@ import com.xcbeyond.springboot.model.User;
 //提供路由信息，负责URL到Controller中的具体函数的映射
 @RequestMapping("/demo")
 public class ControllerDemo {
-	@Resource
-	private RandomConfig randomConfig;
+//	@Resource
+//	private RandomConfig randomConfig;
 	
 	@Resource
 	private UserDao userDao;
@@ -42,7 +42,8 @@ public class ControllerDemo {
 	 */
 	@RequestMapping("/randomSecret")
 	public String randomSecret() {
-		return randomConfig.getSecret();
+//		return randomConfig.getSecret();
+		return null;
 	}
 	
 	/**
