@@ -1,19 +1,12 @@
 package com.xcbeyond.springboot.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xcbeyond.springboot.config.RandomConfig;
-import com.xcbeyond.springboot.dao.UserDao;
-import com.xcbeyond.springboot.mapper.UserMapper;
 import com.xcbeyond.springboot.model.User;
+import com.xcbeyond.springboot.service.DemoService;
 /**
  * Controller demo
  * @author xcbeyond
@@ -28,11 +21,7 @@ public class ControllerDemo {
 //	@Resource
 //	private RandomConfig randomConfig;
 	
-	@Resource
-	private UserDao userDao;
-	
-	@Resource
-	private UserMapper userMapper;
+	private DemoService demoService;
 
 	@RequestMapping("/print")
 	public String print() {
@@ -55,14 +44,8 @@ public class ControllerDemo {
 	 */
 	@RequestMapping("/insertUserByJdbcTemplate")
 	public String insertUserByJdbcTemplate() {
-		User user = new User();
-		user.setUserId("xcbeyond");
-		user.setUserName("xcbeyond");
-		user.setSex("F");
-		user.setAge(18);
-		
-		int ret = userDao.insertUser(user);
-		return String.valueOf(ret);
+		int result = demoService.insertUserByJdbcTemplate();
+		return String.valueOf(result);
 		
 	}
 	
@@ -73,7 +56,7 @@ public class ControllerDemo {
 	 */
 	@RequestMapping(value="/queryUserByUserid", method=RequestMethod.GET)
 	public String queryUserByUserid(@RequestParam("userid") String userid) {
-		User user = userMapper.queryUserByUserid(userid);
+		User user = demoService.queryUserByUserid(userid);
 		return user.toString();
 		
 	}
@@ -85,10 +68,7 @@ public class ControllerDemo {
 	 */
 	@RequestMapping(value="/updateByUserid", method=RequestMethod.GET)
 	public String updateByUserid(@RequestParam("userid") String userid, @RequestParam("username") String username) {
-		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("userid", userid);
-		map.put("username", username);
-		userMapper.updateByUserid(map);
-		return username;
+		demoService.updateByUserid(userid,username);
+		return userid + "更新username成功!";
 	}
 }
