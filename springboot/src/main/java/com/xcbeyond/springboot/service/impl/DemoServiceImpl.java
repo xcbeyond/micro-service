@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.xcbeyond.springboot.dao.UserDao;
 import com.xcbeyond.springboot.mapper.UserMapper;
 import com.xcbeyond.springboot.model.User;
@@ -13,6 +15,7 @@ import com.xcbeyond.springboot.service.DemoService;
  * @author xcbeyond
  * 2018年7月25日下午5:35:13
  */
+@Service
 public class DemoServiceImpl implements DemoService {
 	
 	@Resource
