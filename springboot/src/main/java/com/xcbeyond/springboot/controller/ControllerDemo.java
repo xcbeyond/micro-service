@@ -1,5 +1,8 @@
 package com.xcbeyond.springboot.controller;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +24,7 @@ public class ControllerDemo {
 //	@Resource
 //	private RandomConfig randomConfig;
 	
+	@Resource
 	private DemoService demoService;
 
 	@RequestMapping("/print")
