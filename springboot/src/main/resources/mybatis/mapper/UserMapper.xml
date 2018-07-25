@@ -13,4 +13,9 @@
 		from t_user
 		where userid = #{userid}
 	</select>
+	
+	<!-- 通过userid更新username -->
+	<update id="updateByUserid" parameterType="map">
+		update t_user set username = #{username} where userid = #{userid}
+	</update>
 </mapper>

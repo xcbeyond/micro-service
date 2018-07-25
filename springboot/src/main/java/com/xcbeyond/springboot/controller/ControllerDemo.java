@@ -1,5 +1,8 @@
 package com.xcbeyond.springboot.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,5 +76,19 @@ public class ControllerDemo {
 		User user = userMapper.queryUserByUserid(userid);
 		return user.toString();
 		
+	}
+	
+	/**
+	 * 通过userid更新username
+	 * @param userid
+	 * @param username
+	 */
+	@RequestMapping(value="/updateByUserid", method=RequestMethod.GET)
+	public String updateByUserid(@RequestParam("userid") String userid, @RequestParam("username") String username) {
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("userid", userid);
+		map.put("username", username);
+		userMapper.updateByUserid(map);
+		return username;
 	}
 }
