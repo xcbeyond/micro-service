@@ -16,6 +16,9 @@
 		<module>springCloudEureka</module>
 		<!-- 服务提供者。(Eureka Client) -->
 		<module>springCloudEurekaClient</module>
+		<!-- 服务提供者 -->
+		<module>serviceProvider</module>
+		<module>serviceConsumer</module>
 	</modules>
 	
 	<parent>
