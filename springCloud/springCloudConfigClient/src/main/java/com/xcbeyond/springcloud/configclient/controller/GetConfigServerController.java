@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GetConfigServerController {
 	//通过服务配置中心获取git上配置文件里的key
 	@Value("${test}")
-	String test;
+	private String test;
 	
 	@RequestMapping("/hi")
 	public String hi() {
