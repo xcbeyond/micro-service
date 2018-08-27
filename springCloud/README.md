@@ -7,6 +7,7 @@
 |1		|springCloudEureka		|register-center	|8761	|注册中心|	
 |2		|springCloudConfigServer|config-center		|8888	|配置中心|
 |3		|springCloudZuulGateway	|gateway			|8111	|网关|
+|4		|springCloudMonitor		|monitor			|9999	|监控|
 
 
 ## springCloudZuulGateway
