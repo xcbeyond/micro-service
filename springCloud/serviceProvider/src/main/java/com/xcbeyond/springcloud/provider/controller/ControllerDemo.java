@@ -24,4 +24,9 @@ public class ControllerDemo {
 		String result = serviceDemo.messageContext();
 		return result;
 	}
+	
+	@RequestMapping("/print")
+	public String print() {
+		return "Hello,SpringCloud!";
+	}
 }
