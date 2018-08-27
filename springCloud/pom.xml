@@ -14,6 +14,8 @@
 	<modules>
 		<!-- 服务注册中心。 (Eureka Server)-->
 		<module>springCloudEureka</module>
+		<!-- 配置中心 -->
+		<module>springCloudConfigServer</module>
 		<!-- 服务提供者。(Eureka Client) -->
 		<module>springCloudEurekaClient</module>
 		<!-- 服务提供者 -->
@@ -41,13 +43,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 	
 	<build>
@@ -69,4 +64,5 @@
 			</snapshots>
 		</repository>
 	</repositories>
+	<description>微服务系列</description>
 </project>
