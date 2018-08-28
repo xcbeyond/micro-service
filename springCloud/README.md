@@ -7,7 +7,11 @@
 |1		|springCloudEureka		|register-center	|8761	|注册中心|	
 |2		|springCloudConfigServer|config-center		|8888	|配置中心|
 |3		|springCloudZuulGateway	|gateway			|8111	|网关|
-|4		|springCloudMonitor		|monitor			|9999	|监控|
+|4		|springCloudMonitor		|monitor			|9999	|监控,可以用来监控spring-boot项目的基本信息，详细的Health信息、内存信息、JVM信息、垃圾回收信息、各种配置信息（比如数据源、缓存列表和命中率）等|
+
+## 启动顺序
+ springCloudEureka —> springCloudConfigServer -> springCloudMonitor -> springCloudZuulGateway ……	</br>
+ （springCloudEureka —> springCloudConfigServer的启动顺序必须遵守，其余启动顺序没有严格要求）
 
 
 ## springCloudZuulGateway
