@@ -16,11 +16,14 @@
 		<module>springCloudEureka</module>
 		<!-- 配置中心 -->
 		<module>springCloudConfigServer</module>
+		<!-- 服务监控 -->
+		<module>springCloudMonitor</module>
 		<!-- 服务提供者。(Eureka Client) -->
 		<module>springCloudEurekaClient</module>
 		<!-- 服务提供者 -->
 		<module>serviceProvider</module>
 		<module>serviceConsumer</module>
+		
 	</modules>
 	
 	<parent>
@@ -43,6 +46,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- eureka-client依赖包 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>2.0.0.RELEASE</version>
+		</dependency>
+		<!-- spring-boot-admin-*-client依赖包，把所有微服务作为监控对象 -->
+		<dependency>
+		    <groupId>de.codecentric</groupId>
+		    <artifactId>spring-boot-admin-starter-client</artifactId>
+		    <version>2.0.0</version>
+  		</dependency>
+		
 	</dependencies>
 	
 	<build>
