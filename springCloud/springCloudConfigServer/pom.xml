@@ -5,30 +5,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.xcbeyond.springcloud</groupId>
+	<groupId>com.xcbeyond.springcloud.config</groupId>
 	<artifactId>springCloudConfigServer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>springCloudConfigServer</name>
 	<url>http://maven.apache.org</url>
+	
+	<parent>
+		<groupId>com.xcbeyond.springcloud</groupId>
+		<artifactId>springCloud</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
-		<relativePath/>
-	</parent>
-	
 	<dependencies>
-		<!--  
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter</artifactId>
-			<version>2.0.0.RELEASE</version>
-		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
@@ -38,12 +30,6 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 			<version>2.0.0.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<description>服务配置中心。集中存储所有应用的配置文件，为外部配置提供服务器和客户端支持。</description>
