@@ -18,6 +18,10 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- 镜像前缀，推送镜像到远程库时需要 -->
+	    <docker.image.prefix>mirco-service</docker.image.prefix>
+	    <!-- docker镜像的tag -->
+	    <docker.tag>demo</docker.tag>
 	</properties>
 	
 	<dependencies>
@@ -32,5 +36,58 @@
 			<version>2.0.0.RELEASE</version>
 		</dependency>
 	</dependencies>
+	
+	<!-- 打包配置 -->
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<!-- build后的文件名，默认值是${artifactId}-${version}。  -->
+    	<finalName>config-center-${version}</finalName>
+    	
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<!-- 配置docker maven插件，绑定install生命周期，在运行maven install时生成docker镜像 -->
+	        <plugin>
+	            <groupId>com.spotify</groupId>
+	            <artifactId>docker-maven-plugin</artifactId>
+	            <version>0.4.13</version>
+	            <executions>
+	                <execution>
+	                    <phase>install</phase>
+	                    <goals>
+	                        <goal>build</goal>
+	                        <goal>tag</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	            <configuration>
+	                <!-- 修改这里的docker节点ip，需要打开docker节点的远程管理端口2375。可在hosts中进行dockerip的配置 -->
+	                <dockerHost>http://dockerip:2375</dockerHost>
+	                <imageName>${project.build.finalName}</imageName>
+	                <baseImage>java</baseImage>
+	                <!-- 这里的entryPoint定义了容器启动时的运行命令，容器启动时运行 java -jar 包名 , -Djava.security.egd这个配置解决tomcat8启动时，因为需要收集环境噪声来生成安全随机数导致启动过慢的问题-->
+	                <entryPoint>
+	                    ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/${project.build.finalName}.jar"]
+	                </entryPoint>
+	                <resources>
+	                    <resource>
+	                        <targetPath>/</targetPath>
+	                        <directory>${project.build.directory}</directory>
+	                        <include>${project.build.finalName}.jar</include>
+	                    </resource>
+	                </resources>
+	                <image>${docker.image.prefix}/${project.build.finalName}</image>
+	                <newName>${docker.image.prefix}/${project.build.finalName}:${docker.tag}</newName>
+	                <forceTags>true</forceTags>
+	                <!-- 如果需要在生成镜像时推送到远程库，pushImage设为true -->
+	                <pushImage>false</pushImage>
+	            </configuration>
+	        </plugin>
+		</plugins>
+	</build>
+	
 	<description>服务配置中心。集中存储所有应用的配置文件，为外部配置提供服务器和客户端支持。</description>
 </project>
