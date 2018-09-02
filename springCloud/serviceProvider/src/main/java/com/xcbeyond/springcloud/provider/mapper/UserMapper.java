@@ -1,22 +1,23 @@
-package com.xcbeyond.springcloud.provider.service;
+package com.xcbeyond.springcloud.provider.mapper;
+
+import java.util.HashMap;
 
 import com.xcbeyond.springcloud.provider.model.User;
 
 /**
- * 逻辑服务层
+ * User数据访问层接口
  * @author xcbeyond
- * 2018年8月7日上午11:47:04
+ * 2018年7月16日下午5:01:17
  */
-public interface ServiceDemo {
-	public String messageContext();
+public interface UserMapper {
 	/**
 	 * 插入用户信息
+	 * @param user
 	 * @return
 	 */
-	public int insertUser();
-	
+	public int insertUser(User user);
 	/**
-	 *  通过userid查询
+	 * 通过userid查询
 	 * @param userid
 	 * @return
 	 */
@@ -27,5 +28,5 @@ public interface ServiceDemo {
 	 * @param userid
 	 * @param username
 	 */
-	public void updateByUserid(String userid, String username);
+	public void updateByUserid(HashMap<String,String> map);
 }

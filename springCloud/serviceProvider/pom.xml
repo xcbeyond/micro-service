@@ -4,16 +4,17 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com.xcbeyond.springcloud.provider</groupId>
+	<artifactId>serviceProvider</artifactId>
+	<name>servicesProvider</name>
+	<url>http://maven.apache.org</url>
+	
 	<parent>
 		<groupId>com.xcbeyond.springcloud</groupId>
 		<artifactId>springCloud</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.xcbeyond.springcloud</groupId>
-	<artifactId>serviceProvider</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>servicesProvider</name>
-	<url>http://maven.apache.org</url>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,6 +24,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- 集中配置依赖包 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+			<version>2.0.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -35,12 +42,35 @@
 	        <version>2.0.0.RELEASE</version>
     	</dependency>
     	
+    	<!-- Jdbc依赖包 -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+      	 	<groupId>org.springframework.boot</groupId>
+       		<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
+		<!-- MyBatis依赖包 -->
+		<dependency>
+	    	<groupId>org.mybatis.spring.boot</groupId>
+	    	<artifactId>mybatis-spring-boot-starter</artifactId>
+	    	<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<!-- redis依赖包 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		
+		<!-- jasypt加密 -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>2.0.0</version>
+        </dependency>
 	</dependencies>
 	<description>服务提供者</description>
 </project>

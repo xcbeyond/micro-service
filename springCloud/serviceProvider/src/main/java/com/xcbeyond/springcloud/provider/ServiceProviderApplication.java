@@ -1,7 +1,9 @@
 package com.xcbeyond.springcloud.provider;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
@@ -13,6 +15,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 //开启作为Eureka Server的客户端的支持
 @EnableEurekaClient
+//指定要扫描的Mapper类的包的路径
+@MapperScan("com.xcbeyond.springcloud.provider")
+//开启缓存功能
+@EnableCaching
 public class ServiceProviderApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ServiceProviderApplication.class, args);

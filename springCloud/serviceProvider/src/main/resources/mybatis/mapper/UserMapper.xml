@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xcbeyond.springcloud.provider.mapper.UserMapper">
+	<sql id="column">
+		userid,username,sex,age
+	</sql>
+
+	<insert id="insertUser"
+		parameterType="com.xcbeyond.springcloud.provider.model.User">
+		insert into t_user
+		(userid,username,sex,age)
+		values
+		(#{userId},#{userName},#{sex},#{age})
+	</insert>
+	<select id="queryUserByUserid" parameterType="string"
+		resultType="com.xcbeyond.springcloud.provider.model.User">
+		select
+		<include refid="column"></include>
+		from t_user
+		where userid = #{userid}
+	</select>
+	
+	<!-- 通过userid更新username -->
+	<update id="updateByUserid" parameterType="map">
+		update t_user set username = #{username} where userid = #{userid}
+	</update>
+</mapper>
