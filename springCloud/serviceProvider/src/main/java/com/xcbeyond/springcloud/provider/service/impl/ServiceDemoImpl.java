@@ -4,19 +4,19 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xcbeyond.springcloud.provider.mapper.UserMapper;
 import com.xcbeyond.springcloud.provider.model.User;
 import com.xcbeyond.springcloud.provider.service.ServiceDemo;
+import com.xcbeyond.springcloud.provider.utils.RedisUtils;
 
 @Service
-//指定使用缓存名
-@CacheConfig(cacheNames="userCache")
 public class ServiceDemoImpl implements ServiceDemo {
+	
+	@Resource
+	RedisUtils redisUtils;
 	
 	@Resource
 	private UserMapper userMapper;
@@ -36,25 +36,34 @@ public class ServiceDemoImpl implements ServiceDemo {
 		user.setAge(18);
 		
 		int result = userMapper.insertUser(user);
+
+		redisUtils.set("xcbeyond", JSONObject.toJSONString(user));
 		
 		return result;
 	}
 
 	@Override
-	//@Cacheable:将查询结果缓存到redis中，（key="#p0"）指定传入的第一个参数作为redis的key
-	@Cacheable(key="#p0")
 	public User queryUserByUserid(String userid) {
-		return userMapper.queryUserByUserid(userid);
+		User user = userMapper.queryUserByUserid(userid);
+		if(null != user) {
+			redisUtils.getAndSet(userid, JSONObject.toJSONString(user));
+		}
+		
+		return user;
 	}
 
 	@Override
-	//@CachePut:指定key为第一个参数userid，将更新的结果同步到redis中
-	@CachePut(key = "#p0")
 	public void updateByUserid(String userid, String username) {
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("userid", userid);
 		map.put("username", username);
 		userMapper.updateByUserid(map);
+		
+		//将修改后的数据更新到redis中
+		User user = userMapper.queryUserByUserid(userid);
+		if(null != user) {
+			redisUtils.getAndSet(userid, JSONObject.toJSONString(user));
+		}
 	}
 
 }
