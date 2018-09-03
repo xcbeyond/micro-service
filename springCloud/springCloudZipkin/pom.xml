@@ -6,16 +6,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xcbeyond.springcloud.zipkin</groupId>
     <artifactId>springCloudZipkin</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     
     <name>springCloudZipkin</name>
     <url>http://maven.apache.org</url>
 
-    <parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
+	<parent>
+		<groupId>com.xcbeyond.springcloud</groupId>
+		<artifactId>springCloud</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
     <dependencies>
@@ -44,14 +43,18 @@
         </dependency>
         
 		<!-- zipkin依赖包 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-zipkin-stream</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-        </dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-kafka</artifactId>
+		</dependency>
         <dependency>
             <groupId>io.zipkin.java</groupId>
             <artifactId>zipkin-autoconfigure-ui</artifactId>
