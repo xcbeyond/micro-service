@@ -2,6 +2,8 @@ package com.xcbeyond.springcloud.provider.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,6 +18,20 @@ public class RedisUtils {
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
 
+	/**
+	 * 对redis key-value进行序列化，避免出现乱码现象
+	 * @param redisTemplate
+	 */
+	@Autowired(required = false)
+	public void setRedisTemplate(RedisTemplate<String, String> redisTemplate) {
+	    RedisSerializer<?> stringSerializer = new StringRedisSerializer();
+	    redisTemplate.setKeySerializer(stringSerializer);
+	    redisTemplate.setValueSerializer(stringSerializer);
+	    redisTemplate.setHashKeySerializer(stringSerializer);
+	    redisTemplate.setHashValueSerializer(stringSerializer);
+	    this.redisTemplate = redisTemplate;
+	}
+	
 	/**
 	 * 读取缓存
 	 * 
